@@ -20,10 +20,15 @@ class UserService
 
     public function createUser($param)
     {
+        // code develop
         $user = [
             'name' => $param['name'],
             'email' => $param['email'],
         ];
+            
+        $namSinh = 2002;
+        $tuoi = 2024 - $namSinh;
+
         if(isset($param['password'] && $param['password'])) {
         	$user['password'] = $param['password'];
         }
@@ -36,8 +41,8 @@ class UserService
     	if ($param['keyword']) {
     		$UserSearch->where('name', "like', "%{$param['keyword']}%");
     	}
-    	 return $userSearch->with('role', 'group')->where('status', true)
-         ->whereHas('schedule')
-         ->paginate();
+    	 return $userSearch->with('role', 'group')  ->where('status', true)
+                                                    ->whereHas('schedule')
+                                                    ->paginate();
     }
 }
